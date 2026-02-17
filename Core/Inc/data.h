@@ -1,13 +1,14 @@
-#ifndef __SPEEDUINO_DATA_H__
-#define __SPEEDUINO_DATA_H__
+#ifndef __DATA_H__
+#define __DATA_H__
+
+
+#include <stdint.h>
 
 /*
 Speeduino Data Structures, see https://wiki.speeduino.com/en/Secondary_Serial_IO_interface
 */
 
 typedef struct __attribute__((packed)) {
-    // Note: __attribute__((packed)) is used here so compiler doesn't pad the struct.
-    //Data nned to be laid out exactly as defined by Tunerstudio
     uint8_t  secl;                // 0: Seconds counter
     uint8_t  status1;             // 1: Bitfield (Inj status, DFCO, etc)
     uint8_t  engine;              // 2: Bitfield (Running, Crank, ASE, WUE)
@@ -85,9 +86,8 @@ typedef struct __attribute__((packed)) {
 } speeduino_data_t;
 
 typedef union {
-    // Union to make reading structs from the raw serial array easier.
     speeduino_data_t data;
     uint8_t bytes[sizeof(speeduino_data_t)];
 } speeduino_data_union_t;
 
-#endif /* __SPEEDUINO_DATA_H__ */
+#endif
